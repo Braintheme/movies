@@ -1,0 +1,19 @@
+.default-layout {
+    padding: 100px 0;
+}
+
+.img-fluid {
+    display: block;
+    max-width: 100%;
+}
+
+.pagination {
+    justify-content: center;
+    padding: 20px 0;
+}
+
+@import 'browse-movie',
+        'components/similar-films',
+        'components/_browse-movies_section';
+
+@import 'pages/film-single'

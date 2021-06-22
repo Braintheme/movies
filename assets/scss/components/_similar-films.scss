@@ -1,0 +1,12 @@
+.similar-films {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    a {
+       width: 50%;
+       padding: 7.5px;
+       img {
+           max-width: 100%;
+       }
+    }
+}

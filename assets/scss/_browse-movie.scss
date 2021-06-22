@@ -1,0 +1,104 @@
+.browse-movie {
+    &-wrap {
+        padding: 50px 15px;
+    }
+    &-bottom {
+        padding: 10px 5px;
+        margin-bottom: 10px;
+    }
+    &-title {
+        font-weight: 600;
+        font-size: 14px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        text-decoration: none;
+        color: var(--bs-dark);
+    }
+    &-year {
+        color: var(--bs-secondary);
+
+        font-size: 13px;
+    }
+    &-quality {
+        .badge {
+            margin-right: 5px;
+            &:last-child {
+                margin-right: 0;
+            }
+            &.bg-dark {
+                text-decoration: none;
+                color: #fff;
+                &:hover {
+                    background-color: #545454!important;
+                }
+            }
+        }
+    }
+    &-link {
+        figure {
+            position: relative;
+            background-color: #000;
+            margin-bottom: 0;
+            border-radius: 5px;
+            overflow: hidden;
+            img {
+                transition: opacity ease-out 0.2s;
+            }
+            figcaption {
+                visibility: hidden;
+                opacity: 0;
+
+                position: absolute;
+
+                left: 0;
+                top: 0;
+
+                text-align: center;
+
+                width: 100%;
+                height: 100%;
+
+                transition: all ease-out 0.4s;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                h4 {
+                    color: #fff;
+                    &.rating {
+                        margin-bottom: 20px;
+                    }
+                }
+                .genrs {
+                    .genr {
+                        color: #fff;
+
+                        font-weight: 600;
+                        font-size: 17px;
+                        &:last-child {
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+                
+            }
+        }
+        &:hover {
+            figure {
+                img {
+                    opacity: 0.3;
+                    filter: blur(1.5px);
+                }
+                figcaption {
+                    visibility: visible;
+                    opacity: 1;
+                }
+                
+            }
+        }
+    }
+}
