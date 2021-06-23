@@ -1,10 +1,10 @@
 <template>
      <nav aria-label="Pagination">
-         <p>paginator: {{filmsParams}}</p>
+         <!-- <p>paginator: {{filmsParams}}</p>
          <p>page: {{page}}</p>
          <p>films: {{films_count}}</p>
          <p>pages: {{countPages}}</p>
-         <p>limit: {{limit}}</p>
+         <p>limit: {{limit}}</p> -->
         <ul class="pagination">
 
             <!-- First page -->
