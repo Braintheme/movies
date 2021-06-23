@@ -21,7 +21,7 @@
           <Pagination/>
         </div>
 
-        <filmsBrowse :classes="`row row-cols-5 browse-movie-wrap`"  :films="films" :col="`col`" />
+        <filmsBrowse :classes="`row row-cols-5 browse-movie-wrap`"  :films="films" :col="col" />
         
         <div class="col-12" v-show="films" >
           <Pagination/>
@@ -84,6 +84,9 @@ export default {
         limit() {
             return this.$store.getters["films/getFilmsLimit"]
         },
+        col() {
+          return 'col'
+        }
     }
 }
 

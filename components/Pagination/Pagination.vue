@@ -111,34 +111,38 @@ export default {
     methods: {
         async goToPage(index) {
             await this.$store.dispatch('films/setFilmsPageNumber', index )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
         },
 
         async nextPage() {
             await this.$store.dispatch('films/setFilmsPageNumber', this.page + 1 )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
         },
 
         async prevPage() {
             await this.$store.dispatch('films/setFilmsPageNumber', this.page - 1 )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
         },
 
         async firstPage() {
             await this.$store.dispatch('films/setFilmsPageNumber', 1 )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
         },
 
         async lastPage() {
             await this.$store.dispatch('films/setFilmsPageNumber', this.countPages )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
+        },
+
+        pushRouteByQuery(query) {
+            this.$router.push({ path: '', query: query })
         }
     },
     async mounted() {
         if(this.$route.query.page) {
 
             await this.$store.dispatch('films/setFilmsPageNumber', this.$route.query.page )
-            this.$router.push({ path: '' ,query: this.filmsParams })
+            this.pushRouteByQuery(this.filmsParams)
 
         }else {
             await this.$store.dispatch('films/getFilms', this.filmsParams)

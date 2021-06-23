@@ -7,7 +7,6 @@ export const state = () => ({
 export const mutations = {
     setFilms(state, data) {
         state.films.push(data) 
-        // console.log('mutation:', data); 
     }
 }
 
@@ -15,7 +14,6 @@ export const actions = {
     async getFilms({commit}, params) {
         //params
         const key = params.genre  
-
         //request
         const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
         const response = await request.json()

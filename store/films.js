@@ -7,44 +7,43 @@ export const state = () => ({
     params: {
         limit: 20,
         page: 1,
-        
+
+        query_term: null,
         quality: null,
         minimum_rating: null,
-        query_term: null,
         genre: null,
         sort_by: null,
         order_by: null,
-        with_rt_ratings: null,
     },
     filtration_params: {
         genres: [
-            'All',
-            'Action',
-            'Adventure',
-            'Animation',
-            'Biography',
-            'Comedy',
-            'Crime',
-            'Documentary',
-            'Drama',
-            'Family',
-            'Fantasy',
-            'Film-Noir',
-            'Game-Show',
-            'History',
-            'Horror',
-            'Music',
-            'Musical',
-            'Mystery',
-            'News',
-            'Reality-TV',
-            'Romance',
-            'Sci-Fi',
-            'Sport',
-            'Talk-Show',
-            'Thriller',
-            'War',
-            'Western',
+            'all',
+            'action',
+            'adventure',
+            'animation',
+            'biography',
+            'comedy',
+            'crime',
+            'documentary',
+            'drama',
+            'family',
+            'fantasy',
+            'film-Noir',
+            'game-Show',
+            'history',
+            'horror',
+            'music',
+            'musical',
+            'mystery',
+            'news',
+            'reality-TV',
+            'romance',
+            'sci-Fi',
+            'sport',
+            'talk-Show',
+            'thriller',
+            'war',
+            'western',
         ], 
         quality: [
             'All',
@@ -53,7 +52,7 @@ export const state = () => ({
             '2160p',
             '3D',
         ],
-        rating: {
+        minimum_rating: {
             'All':'0',
             '9+':'9',
             '8+':'8',
@@ -66,16 +65,9 @@ export const state = () => ({
             '1+':'1',
         }, 
         sort_by: [
-            'Latest',
-            // 'Oldest',
-            // 'Featured',
-            // 'Seeds',
-            // 'Peers',
-            'Year',
-            'Rating',
-            // 'Likes',
-            // 'Alphabetical',
-            // 'Downloads',
+            'latest',
+            'year',
+            'rating',
         ],
         order_by: {
             'Default' : 'desc',
@@ -95,6 +87,9 @@ export const mutations = {
     setFilmsPage(state, data) {
         state.page = data
     },
+    setFilmsParams(state, data) {
+        state.params = data
+    },
     setFilmsLimit(state, data) {
         state.params.limit = data
     },
@@ -113,7 +108,7 @@ export const mutations = {
     setFilmsPageNumber(state, data) {
         state.params.page = data
     },
-    setFilmsReverseResults(state, data) {
+    setFilmsOrderBy(state, data) {
         state.params.order_by = data
     },
     setQueryTerm(state, data) {
@@ -133,6 +128,11 @@ export const actions = {
         commit('setFilmsPage', response.data.page )
     },
 
+    async setFilmsParams({commit, dispatch, getters}, data) {
+        commit('setFilmsParams', data )
+        await dispatch('getFilms', getters.getFilmsParams)
+    },
+    
     async setFilmsLimit({commit, dispatch, getters}, data) {
         commit('setFilmsLimit', data )
         await dispatch('getFilms', getters.getFilmsParams)
@@ -163,8 +163,8 @@ export const actions = {
         await dispatch('getFilms', getters.getFilmsParams )
     },
     
-    async setFilmsReverseResults({commit, dispatch, getters}, data) {
-        commit('setFilmsReverseResults', data )
+    async setFilmsOrderBy({commit, dispatch, getters}, data) {
+        commit('setFilmsOrderBy', data )
         await dispatch('getFilms', getters.getFilmsParams )
     },
 

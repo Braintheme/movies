@@ -2,7 +2,7 @@
   <swiper ref="mySwiper" :options="sliderOptions">
 
     <swiper-slide v-for="film in films" :key="film.id">
-      <Poster :footer="false" :film="film"/>
+      <Poster :footer="false" :col="null" :film="film"/>
     </swiper-slide>
 
 

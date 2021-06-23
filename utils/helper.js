@@ -1,25 +1,39 @@
 export function filterNullObject(object) {
-    const result = [object].map(el => {
+  const result = [object].map(el => {
 
-        return Object.keys(el).reduce((newObj, key) => {
-            const value = el[key];
-            if (value !== null) {
-                newObj[key] = value;
-            }
-            return newObj;
-        }, {});
-
-    });
-
-    return result[0]
-} 
+    return Object.keys(el).reduce((newObj, key) => {
+      const value = el[key];
+      if (value !== null) {
+        newObj[key] = value;
+      }
+      return newObj;
+    }, {});
+  });
+  return result[0]
+}
 
 export function getQueryUrlFromObject(object) {
 
-    const string = '?' + Object.keys(object).reduce(function(a, k){
-        a.push(k + '=' + encodeURIComponent(object[k]));
-        return a;
-    }, []).join('&');
+  const string = '?' + Object.keys(object).reduce(function (a, k) {
+    a.push(k + '=' + encodeURIComponent(object[k]));
+    return a;
+  }, []).join('&');
+  return string;
+}
 
-    return string;
+export function isEmptyObject(obj) {
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      return false;
+    }
+  }
+  return JSON.stringify(obj) === JSON.stringify({});
+}
+
+export function toLowerCase(string) {
+  return string.toLowerCase();
+}
+
+export function toUpperCase(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
