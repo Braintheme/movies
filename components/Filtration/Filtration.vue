@@ -1,10 +1,6 @@
 <template>
   <div class="col-12">
-    {{ params }}
-    <a
-      href="http://localhost:3000/browse-movies?limit=30&page=1&quality=720p&rating=0&genre=biography&sort_by=year&order_by=asc&query_term=love"
-      >go</a
-    >
+    <!-- Filtration by  Query -->
     <input
       v-on:input="searchByString"
       v-model="params.query_term"
@@ -30,7 +26,7 @@
             :key="index"
             :value="quality"
           >
-            {{ quality }}
+            {{quality}}
           </option>
         </select>
       </div>
@@ -48,7 +44,9 @@
             v-for="(genre, index) in filtrationParams.genres"
             :key="index"
             :value="genre"
-          >{{toUpperCase(genre)}}</option>
+          >
+            {{toUpperCase(genre)}}
+          </option>
         </select>
       </div>
 
@@ -99,6 +97,7 @@
         </select>
       </div>
 
+      <!-- Set limit for showing on page -->
       <div class="form-group col">
         <label for="state" class="form-label">Limit:</label>
         <select
@@ -107,11 +106,13 @@
           class="form-select"
           v-model="params.limit"
         >
-          <option value="10">10</option>
-          <option selected value="20">Default (20)</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-          <option value="50">50</option>
+          <option
+            v-for="(limit, key, index) in filtrationParams.limit"
+            :key="index"
+            :value="key"
+          >
+          {{limit}}
+          </option>
         </select>
       </div>
     </div>
@@ -119,8 +120,12 @@
 </template>
 
 <script>
-
-import { isEmptyObject, filterNullObject, toLowerCase, toUpperCase } from "~/utils/helper";
+import {
+  isEmptyObject,
+  filterNullObject,
+  toLowerCase,
+  toUpperCase,
+} from "~/utils/helper";
 
 export default {
   data() {
@@ -137,18 +142,16 @@ export default {
     };
   },
   async mounted() {
-
     const routeParams = this.$route.query;
 
     if (isEmptyObject(routeParams) == false) {
       await this.$store.dispatch("films/setFilmsParams", routeParams);
 
-      this.pushRouteByQuery( this.filmsParams );
+      this.pushRouteByQuery(this.filmsParams);
       this.params = { ...this.params, ...filterNullObject(this.filmsParams) };
     }
   },
   methods: {
-
     async setLimit(event) {
       await this.$store.dispatch("films/setFilmsLimit", event.target.value);
       this.$router.push({ path: "", params: this.filmsParams });
@@ -189,7 +192,8 @@ export default {
     },
 
     //Imported methods
-    toLowerCase, toUpperCase
+    toLowerCase,
+    toUpperCase,
   },
   computed: {
     filmsParams() {

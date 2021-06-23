@@ -31,7 +31,13 @@
     />
 
     <!-- //Show comedy -->
-    <BrowseByGenre :limit="5" :genre="`comedy`"/>
+    <BrowseByGenre
+      :limit="5"
+      :type_show="`slider`"
+      :genre="`comedy`"
+      :footer="true"
+      :slider_options = "sliderOptions.default.swiperOptions"
+    />
    
     <!-- //Show actions -->
     <BrowseByGenre :limit="5" :genre="`crime`"/>
@@ -89,13 +95,33 @@ export default {
         },
         action_slider: {
           swiperOptions: {
-            slidesPerView: 4,
+            slidesPerView: 5,
             spaceBetween: 30,
             centeredSlides: true,
             autoplay: {
               delay: 2000,
             },
             // loop: true
+          }
+        },
+        default: {
+          swiperOptions: {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            breakpoints: {
+              1200: {
+                slidesPerView: 5,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 20
+              },
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 10
+              }
+            }
           }
         }
       }

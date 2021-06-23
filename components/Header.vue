@@ -15,11 +15,11 @@
                 </nuxt-link>
             </li>
             <li class="nav-item">
-                <nuxt-link exact no-prefetch active-class="text-secondary" class="nav-link px-2 text-white" to="/films">
-                    Films
+                <nuxt-link exact no-prefetch active-class="text-secondary" class="nav-link px-2 text-white" to="/about">
+                    About
                 </nuxt-link>
             </li>
-          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

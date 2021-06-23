@@ -8,7 +8,7 @@
         </template>
 
         <template v-else-if="type_show == 'slider'">
-            <SliderByGenre :options="slider_options" :films="films.content" />
+            <SliderByGenre :options="slider_options" :footer="footer" :films="films.content" />
         </template>
 
     </div>
@@ -48,11 +48,10 @@ export default {
         },
         classes: {
             type: String,
-            default: `row row-cols-5`
+            default: `row`
         },
-        slider_options: {
-            type: Object
-        },
+        slider_options: Object,
+        footer: Boolean
     },
     data() {
         return {

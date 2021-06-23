@@ -72,6 +72,13 @@ export const state = () => ({
         order_by: {
             'Default' : 'desc',
             'Reverse' : 'asc',
+        },
+        limit: {
+            10: 10,
+            20: 'Default',
+            30: 30,
+            40: 40,
+            50: 50
         }
     }
 

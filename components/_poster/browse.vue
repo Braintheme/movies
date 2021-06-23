@@ -12,7 +12,7 @@
 <script>
 
 
-import poster from '~/components/_poster/poster';
+import Poster from '~/components/_poster/Poster';
 
 export default {
     props: {
@@ -27,7 +27,7 @@ export default {
         }
     },
     components: {
-        Poster: poster
+        Poster
     }
 }
 </script>
