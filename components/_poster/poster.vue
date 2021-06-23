@@ -1,5 +1,5 @@
 <template>
-    <div :class="col" >
+    <div :class="col">
         <nuxt-link class="browse-movie-link" :to="`films/${film.id}`">
             <figure>
                 <img v-lazy="film.medium_cover_image" class="card-img" :alt="film.title_long">
