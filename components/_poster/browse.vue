@@ -15,6 +15,9 @@
 import Poster from '~/components/_poster/Poster';
 
 export default {
+    components: {
+        Poster
+    },
     props: {
         films: Array,
         col: {
@@ -25,9 +28,6 @@ export default {
             type: String,
             default: 'browse-movie-wrap'
         }
-    },
-    components: {
-        Poster
     }
 }
 </script>
