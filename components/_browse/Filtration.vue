@@ -11,7 +11,7 @@
       value=""
     />
 
-    <!-- Filtration by Quality -->
+    <!-- Filtration by Quality: 720p, 1080, and etc.. -->
     <div class="row">
       <div class="form-group col">
         <label for="quality" class="form-label">Quality:</label>
@@ -127,6 +127,8 @@ import {
   toUpperCase,
 } from "~/utils/helper";
 
+import debounce from 'lodash/debounce';
+
 export default {
   data() {
     return {
@@ -151,41 +153,51 @@ export default {
       this.params = { ...this.params, ...filterNullObject(this.filmsParams) };
     }
   },
+  beforeDestroy() {
+    this.$store.dispatch("films/cleanParams");
+  },
   methods: {
-    async setLimit(event) {
-      await this.$store.dispatch("films/setFilmsLimit", event.target.value);
+
+    // Set limit
+    setLimit: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsLimit", event.target.value);
       this.$router.push({ path: "", params: this.filmsParams });
-    },
+    }, 500),
 
-    async searchByString(event) {
-      await this.$store.dispatch("films/setFilmsQueryTerm", event.target.value);
+    //Search by string
+    searchByString: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsQueryTerm", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
-    async searchByGenre(event) {
-      await this.$store.dispatch("films/setFilmsGenre", event.target.value);
+    //Search by genre
+    searchByGenre: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsGenre", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
-    async searchByRating(event) {
-      await this.$store.dispatch("films/setFilmsRating", event.target.value);
+    //Search by rating
+    searchByRating: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsRating", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
-    async searchByOrder(event) {
-      await this.$store.dispatch("films/setFilmsOrder", event.target.value);
+    //Search by order
+    searchByOrder: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsOrder", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
-    async searchByQuality(event) {
-      await this.$store.dispatch("films/setFilmsQuality", event.target.value);
+    //Search by quality
+    searchByQuality: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsQuality", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
-    async OrderBy(event) {
-      await this.$store.dispatch("films/setFilmsOrderBy", event.target.value);
+    OrderBy: debounce(function (event) {
+      this.$store.dispatch("films/setFilmsOrderBy", event.target.value);
       this.pushRouteByQuery(this.filmsParams);
-    },
+    }, 500),
 
     pushRouteByQuery(query) {
       this.$router.push({ path: "", query: query });

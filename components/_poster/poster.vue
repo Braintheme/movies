@@ -26,6 +26,7 @@
                 <a :href="torrent.url" v-for="(torrent, index) in film.torrents" :key="index" class="badge bg-dark">{{torrent.quality}}</a>
             </div>
         </div>
+        <!-- <pre>{{film.id}}</pre> -->
     </div>
 </template>
 

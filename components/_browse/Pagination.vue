@@ -1,7 +1,7 @@
 <template>
      <nav aria-label="Pagination">
          <!-- <p>paginator: {{filmsParams}}</p>
-         <p>page: {{page}}</p>
+         <p>page: {{filmsParams.page}}</p>
          <p>films: {{films_count}}</p>
          <p>pages: {{countPages}}</p>
          <p>limit: {{limit}}</p> -->
@@ -100,6 +100,11 @@
 </template>
 
 <script>
+// import {
+//   isEmptyObject,
+//   filterNullObject,
+// } from "~/utils/helper";
+
 export default {
 
     data() {
@@ -140,14 +145,11 @@ export default {
     },
     async mounted() {
         if(this.$route.query.page) {
-
             await this.$store.dispatch('films/setFilmsPageNumber', this.$route.query.page )
             this.pushRouteByQuery(this.filmsParams)
-
         }else {
             await this.$store.dispatch('films/getFilms', this.filmsParams)
         }
-
     },
     computed: { 
         paginator() {
@@ -161,10 +163,8 @@ export default {
             let to = null
 
             if( page < paginator_length ) {
-
                 from =  Math.floor(page / paginator_length)
                 to =  Math.ceil(from + paginator_length )
-
             }else {
                 from =  Math.round(page - paginator_length / 2)
                 to =  Math.round(from + paginator_length - 1 )
@@ -192,6 +192,9 @@ export default {
         },
         limit() {
             return this.$store.getters["films/getFilmsLimit"]
+        },
+        filmsParams() {
+            return this.$store.getters["films/getFilmsParams"];
         },
     },
 }

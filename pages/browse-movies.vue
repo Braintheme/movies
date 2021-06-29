@@ -11,20 +11,20 @@
               Here you can browse and download YIFY movies in excellent 720p,
               1080p, 2160p 4K and 3D quality, all at the smallest file size.
             </p>
-      
         </div>
       </div>
      
         <Filtration/>
         
         <div class="col-12 p-4" v-show="films">
-          <Pagination/>
+          <Pagination v-if="loadMoreStatus" />
         </div>
 
         <filmsBrowse :classes="`row row-cols-5 browse-movie-wrap`"  :films="films" :col="col" />
         
         <div class="col-12" v-show="films" >
-          <Pagination/>
+          <LoadMore/>
+          <!-- <Pagination v-if="loadMoreStatus"/> -->
         </div>
   
     </div>
@@ -35,10 +35,16 @@
 <script>
 
 import filmsBrowse from '~/components/_poster/browse'
+import Pagination from '~/components/_browse/Pagination'
+import LoadMore from '~/components/_browse/LoadMore'
+import Filtration from '~/components/_browse/Filtration'
 
 export default { 
     components: {
-        filmsBrowse
+        filmsBrowse,
+        Pagination,
+        LoadMore,
+        Filtration
     },
     // async asyncData({store}) {
     //     await store.dispatch('films/setFilmsPageNumber')
@@ -48,13 +54,6 @@ export default {
     //         films
     //     }
     // },
-    async mounted() {
-        if(this.$route.query.limit) {
-            await this.$store.dispatch('films/setFilmsLimit', this.$route.query.limit)
-        }else {
-            // await this.$store.dispatch('films/getFilms', `?page=1`)
-        }
-    },
     // Если мы находимся на странице больше чем максимальное доступное количество страниц на данный момент, 
     // мы редиректимся на страницу 1
     watch: {
@@ -84,9 +83,16 @@ export default {
         limit() {
             return this.$store.getters["films/getFilmsLimit"]
         },
+        loadMoreStatus() {
+          return this.$store.getters["films/getLoadMoreStatus"]
+        },
         col() {
           return 'col'
+        },
+        run() {
+          this.$store.dispatch('films/getFilms')
         }
+        
     }
 }
 

@@ -2,8 +2,12 @@ import { filterNullObject, getQueryUrlFromObject } from "~/utils/helper";
 
 export const state = () => ({
     films: null,
+
     page: null,
+
     films_count: null,
+    load_more: true,
+    params_cloned: null,
     params: {
         limit: 20,
         page: 1,
@@ -88,11 +92,22 @@ export const mutations = {
     setFilms(state, data) {
         state.films = data
     },
+
+    // Load more films
+    loadMoreFilms(state, data) {
+        state.load_more = false
+    
+        data.forEach(film => {
+            state.films.push(film)
+        })    
+
+    },
+
     setFilmsCount(state, data) {
         state.films_count = data
     },
     setFilmsPage(state, data) {
-        state.page = data
+        state.params.page = data
     },
     setFilmsParams(state, data) {
         state.params = data
@@ -120,19 +135,51 @@ export const mutations = {
     },
     setQueryTerm(state, data) {
         state.params.query_term = data
+    },
+    cloneParams(state) {
+        state.params_cloned = { ...state.params }
+        state.params = { ...state.params_cloned }
+    },
+    cleanFilmsState(state) {
+        for (let prop in state.films) {
+            delete state.films[prop];
+        }
     }
 }
 
 export const actions = {
+
+    //Clean films state
+    cleanFilmsState({commit}) {
+        commit('cleanFilmsState')
+    },
+
     async getFilms({commit}, params) {
         
         const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
         const response = await request.json()
 
+        commit('cloneParams')
+
         commit('setFilms', response.data.movies)
 
         commit('setFilmsCount', response.data.movie_count )
-        commit('setFilmsPage', response.data.page )
+        commit('setFilmsPage', response.data.page_number )
+
+    },
+
+    //Load more films
+    async loadMoreFilms({commit}, params) {
+
+        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
+        const response = await request.json()
+        console.log(response.data.movies);
+
+        commit('loadMoreFilms', response.data.movies)
+
+        // console.log(typeof response.data.movies);
+        commit('setFilmsCount', response.data.movie_count )
+        commit('setFilmsPage', response.data.page_number )
     },
 
     async setFilmsParams({commit, dispatch, getters}, data) {
@@ -178,6 +225,10 @@ export const actions = {
     async setFilmsQueryTerm({commit, dispatch, getters}, data) {
         commit('setQueryTerm', data )
         await dispatch('getFilms', getters.getFilmsParams )
+    },
+
+    cleanParams({commit}) {
+        commit('cloneParams')
     }
 }
 
@@ -187,5 +238,6 @@ export const getters = {
     getFilmsPerPage: state => state.params.page,
     getFilmsLimit: state => state.params.limit,
     getFilmsParams: state => filterNullObject(state.params),
-    getFiltrationParams: state => state.filtration_params
+    getFiltrationParams: state => state.filtration_params,
+    getLoadMoreStatus: state => state.load_more,
 }
