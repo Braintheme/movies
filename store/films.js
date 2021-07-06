@@ -143,6 +143,18 @@ export const mutations = {
     cleanFilmsState(state) {
         state.films = null
         state.load_more = true
+        state.params.page = 1
+
+        for( let param in state.params ) {
+           
+            if( param !== 'limit' && param !== 'page' ) {
+                state.params[`${param}`] = null
+            }    
+            
+            state.params.page = 1
+            state.params.limit = 20
+            
+        }
     }
 }
 
@@ -161,9 +173,6 @@ export const actions = {
         commit('cloneParams')
 
         commit('setFilms', response.data.movies)
-
-        console.log('get films');
-
         commit('setFilmsCount', response.data.movie_count )
         commit('setFilmsPage', response.data.page_number )
 

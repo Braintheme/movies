@@ -54,6 +54,8 @@ export default {
     //         films
     //     }
     // },
+
+
     // Если мы находимся на странице больше чем максимальное доступное количество страниц на данный момент, 
     // мы редиректимся на страницу 1
     watch: {
@@ -66,6 +68,9 @@ export default {
     },
     mounted() {
       this.$store.dispatch('films/getFilms', this.filmsParams)
+    },
+    beforeDestroy() {
+      this.$store.dispatch('films/cleanFilmsState')
     },
     computed: {
         films() {

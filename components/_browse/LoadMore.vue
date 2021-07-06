@@ -6,12 +6,16 @@
       class="btn btn-secondary btn-lg"
       >Load More</a>
 
+    <div class="alert alert-secondary" role="alert" v-if="scrollEnd">
+      You’ve reached the end of the list
+    </div>
+
   </div>
 </template>
 
 <script>
 import debounce from "lodash/debounce";
-import { isInViewport } from "~/utils/helper";
+import { isInViewport, sizeOfObject } from "~/utils/helper";
 
 export default {
   props: {
@@ -20,11 +24,13 @@ export default {
       default: false,
     },
   },
+
   data() {
     return {
       is_active: false
     }
   },
+
   mounted() {
     window.addEventListener("scroll", this.onScroll);
   },
@@ -34,9 +40,7 @@ export default {
     if(this.is_active) {
       this.$store.dispatch('films/cleanFilmsState')
       this.is_active = false
-      console.log('destroy');
     }
-    
   },
 
   methods: {
@@ -75,6 +79,19 @@ export default {
     filmsParams() {
       return this.$store.getters["films/getFilmsParams"];
     },
+    scrollEnd() {
+      let filmsOnLoad = sizeOfObject(this.$store.getters["films/getFilms"])
+      let allFims = this.$store.getters["films/getFilmsCount"]
+
+      
+
+      if( filmsOnLoad == allFims ) {
+        return true
+      }
+
+      return false
+      
+    }
   },
 };
 </script>
@@ -82,10 +99,12 @@ export default {
 <style lang="scss" scoped>
 
 .load-more {
-  padding: 50px 0;
+  padding: 50px 90px;
   text-align: center;
   &_active {
-    opacity: 0;
+    a {
+      opacity: 0;
+    }
     padding: 0;
   }
 }
