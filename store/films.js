@@ -141,9 +141,8 @@ export const mutations = {
         state.params = { ...state.params_cloned }
     },
     cleanFilmsState(state) {
-        for (let prop in state.films) {
-            delete state.films[prop];
-        }
+        state.films = null
+        state.load_more = true
     }
 }
 
@@ -163,6 +162,8 @@ export const actions = {
 
         commit('setFilms', response.data.movies)
 
+        console.log('get films');
+
         commit('setFilmsCount', response.data.movie_count )
         commit('setFilmsPage', response.data.page_number )
 
@@ -173,7 +174,6 @@ export const actions = {
 
         const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
         const response = await request.json()
-        console.log(response.data.movies);
 
         commit('loadMoreFilms', response.data.movies)
 

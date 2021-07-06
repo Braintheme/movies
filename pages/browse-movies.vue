@@ -64,6 +64,9 @@ export default {
         }
       },
     },
+    mounted() {
+      this.$store.dispatch('films/getFilms', this.filmsParams)
+    },
     computed: {
         films() {
           return this.$store.getters["films/getFilms"]

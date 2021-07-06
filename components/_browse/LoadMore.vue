@@ -31,11 +31,12 @@ export default {
 
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
-    // if(this.is_active) {
-    //   this.$store.dispatch('films/cleanFilmsState')
-    //   this.is_active = false
-    //   console.log('destroy');
-    // }
+    if(this.is_active) {
+      this.$store.dispatch('films/cleanFilmsState')
+      this.is_active = false
+      console.log('destroy');
+    }
+    
   },
 
   methods: {
