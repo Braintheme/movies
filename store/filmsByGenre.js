@@ -1,4 +1,4 @@
-import { getQueryUrlFromObject } from "~/utils/helper";
+import { buildHttpRequest } from "~/utils/helper";
 
 export const state = () => ({
     films: []
@@ -15,7 +15,7 @@ export const actions = {
         //params
         const key = params.genre  
         //request
-        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
+        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + buildHttpRequest(params))
         const response = await request.json()
 
         function Genre(set_genre, data) {

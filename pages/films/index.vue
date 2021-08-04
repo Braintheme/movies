@@ -10,11 +10,9 @@
         </div>
     </div>
 </template>
-
 <script>
 
 import filmsBrowse from '~/components/_poster/browse'
-
 
 export default { 
     components: {

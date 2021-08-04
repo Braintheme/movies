@@ -12,7 +12,7 @@ export function filterNullObject(object) {
   return result[0]
 }
 
-export function getQueryUrlFromObject(object) {
+export function buildHttpRequest(object) {
 
   const string = '?' + Object.keys(object).reduce(function (a, k) {
     a.push(k + '=' + encodeURIComponent(object[k]));

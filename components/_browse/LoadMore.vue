@@ -65,9 +65,6 @@ export default {
 
       const params = { ...this.filmsParams, ...{ page: page } };
 
-      console.log(params);
-      console.log(page);
-
       this.$store.dispatch("films/loadMoreFilms", params);
     }, 100),
   },
@@ -83,14 +80,10 @@ export default {
       let filmsOnLoad = sizeOfObject(this.$store.getters["films/getFilms"])
       let allFims = this.$store.getters["films/getFilmsCount"]
 
-      
-
       if( filmsOnLoad == allFims ) {
         return true
       }
-
       return false
-      
     }
   },
 };

@@ -1,4 +1,4 @@
-import { filterNullObject, getQueryUrlFromObject } from "~/utils/helper";
+import { filterNullObject, buildHttpRequest } from "~/utils/helper";
 
 export const state = () => ({
     films: null,
@@ -143,7 +143,6 @@ export const mutations = {
     cleanFilmsState(state) {
         state.films = null
         state.load_more = true
-        state.params.page = 1
 
         for( let param in state.params ) {
            
@@ -167,7 +166,7 @@ export const actions = {
 
     async getFilms({commit}, params) {
         
-        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
+        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + buildHttpRequest(params))
         const response = await request.json()
 
         commit('cloneParams')
@@ -181,7 +180,7 @@ export const actions = {
     //Load more films
     async loadMoreFilms({commit}, params) {
 
-        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + getQueryUrlFromObject(params))
+        const request = await fetch('https://yts.mx/api/v2/list_movies.json' + buildHttpRequest(params))
         const response = await request.json()
 
         commit('loadMoreFilms', response.data.movies)
